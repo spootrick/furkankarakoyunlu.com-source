@@ -1,5 +1,6 @@
 ---
 title: OpenVPN Kurulumu (Ubuntu 16.04)
+date: 2017-02-23 17:09:12
 tags:
   - VPN
   - OpenVPN
@@ -614,6 +615,33 @@ local $ sudo openvpn --config ~/Desktop/spootrickLaptop.ovpn
 ```
 
 ### OSX
+#### Terminal Kullanarak
+Homebrew yardımı ile OpenVPN'i kurabilirsiniz.
+```
+local $ brew install openvpn
+```
+nedense homebrew OpenVPN'i `$PATH` değişkenine eklemiyor ve terminalden direkt `openvpn` yazarak kullanamıyorsunuz. Terminalden direkt olarak kullanmak için `openvpn` in kurulu yolunu `$PATH` değişkeninize eklemeniz gerekiyor. 
+Bunun için öncelikle brew sistemimizde `openvpn`i nereye kurmuş onu öğrenelim.
+```
+local $ brew info openvpn
+```
+bu komut size programın nerede kurulu olduğunu söyleyecektir. Bende kurulu olduğu dizi şöyle:
+```
+/usr/local/Cellar/openvpn/2.4.1
+```
+bu yolun sonuna `sbin` ekleyerek `$PATH` değişkenimize ekleyelim. Ben zsh kullandığım için home klasörümdeki `.zshrc` dosyasında değişiklik yapacağım eğer siz bash kullanıyorsanız `.bash_profile` dosyasında değişiklik yapın. 
+
+Dosyamı açıyorum:
+```
+local $ vi ~/.zshrc
+```
+ve eklememi yapıyorum:
+```
+export PATH=$PATH:/usr/local/Cellar/openvpn/2.4.1/sbin
+```
+dosyamı kaydedip kapattıktan sonra ister `.zshrc` den tekrar source edebilirim istersem de terminali kapatıp yeniden açabilirim. Artık `openvpn` `$PATH` değişkenimize eklemiş olduk.
+
+#### GUI Kullanarak
 Mac OS X için açık kaynak kodlu olan [Tunnelblick](https://tunnelblick.net/) OpenVPN istemcisini kullanabilirsiniz.
 
 Kurulumun sonuna doğru sizden config dosyasını isteyecektir. Bu aşamada `No` seçip kurulumu tamamladıktan sonra Finder'dan `.ovpn` uzantılı dosyamıza çift tıklarsak Tunnelblick istemci profilini kuracaktır. (Yönetici yetkileri gerektirir.)
